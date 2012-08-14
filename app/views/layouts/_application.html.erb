@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Leelah System Client</title>
+  <%= stylesheet_link_tag    "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<div class="main">
+  <div class="header">
+    <div class="header_resize">
+      <div class="logo">
+		<h1><a href="<%= home_index_path %>">Leelah System <span>Client</span></a></h1>
+	  </div>
+      <div id="user_infos">
+        <ul>
+			<li>Hello <strong><%= @current_user["first_name"] %></strong></li>
+			<li><a href="<%= account_logout_path %>">Log out</a></li>
+		</ul>
+		<div class="clr"></div>
+	  </div>
+      <div class="clr"></div>
+      <div class="main_menu">
+		<%= navigation :catalog, :invoices, :reports, :settings %>
+		<div class="clr"></div>
+      </div>
+	</div>
+  </div>
+  <div class="clr"></div>
+  <div class="content">
+    <div class="content_resize">
+      <div class="mainbar">
+        <div class="article">
+		  <%= yield %>
+		</div>
+	  </div>
+	</div>
+  </div>
+</div>
+</body>
+</html>

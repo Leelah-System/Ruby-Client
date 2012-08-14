@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>FirstSteps</title>
+  <%= stylesheet_link_tag    "application" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<div class="main">
+  <div class="header">
+    <div class="header_resize">
+      <div class="logo">
+		<h1><a href="<%= home_index_path %>">Leelah System <span>Client</span></a></h1>
+	  </div>
+      <div class="clr"></div>
+      <div class="auth">
+		  <%= yield %>
+		<div class="clr"></div>
+      </div>
+	  <ul>
+	    <li><%= flash[:error] %></li>
+	  </ul>
+	</div>
+  </div>
+  <div class="clr"></div>
+  
+</div>
+</body>
+</html>

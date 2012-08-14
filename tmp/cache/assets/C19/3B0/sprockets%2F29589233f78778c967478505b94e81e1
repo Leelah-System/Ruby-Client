@@ -1,0 +1,17 @@
+o: ActiveSupport::Cache::Entry	:@compressedF:@expires_in0:@created_atf1321287711.779954:@value{I"
+class:EFI"StaticAsset;
+FI"id;
+F"%54fd2452267415d7f7751cb2b6006fa6I"logical_path;
+FI"settings.jpg;
+TI"pathname;
+FI")$root/app/assets/images/settings.jpg;
+FI"content_type;
+FI"image/jpeg;
+FI"
+mtime;
+FI"2011-11-14T17:20:58+01:00;
+FI"length;
+FI"109953;
+FI"digest;
+F"%0f9e880164f1b14595a8b4ad0da9710eI"_version;
+F"%46dde6621c301f4928e3b34efee9e3b5
