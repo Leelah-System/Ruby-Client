@@ -1,13 +1,61 @@
-class  CategoryController < AuthenticationController
+class CategoryController < AuthenticationController
 
+  #
+  #
+  #
   def index
-    	uri = URI.parse("http://leelah-system:3000/api/" + session[:user]["token"] + "/catalog/categories")
-  		
-  		resp = Net::HTTP.get(uri)
-
-  		#require 'json'
-  		render :json => resp
-  		
-      
+    begin
+      render :json => LeelahWebServices.get_categories(session[:user]["token"])
+    rescue
+      # Gerer en cas d'erreur (message d'erreur dans attribut $!)
+      print $!
+    end
   end
+
+  #
+  #
+  #
+  def show
+    begin
+      @category = LeelahWebServices.get_category(session[:user]["token"], params[:id])
+    rescue
+      # Gerer en cas d'erreur (message d'erreur dans attribut $!)
+      print $!
+    end
+  end
+
+  #
+  #
+  #
+  def create
+    begin
+      @category = LeelahWebServices.add_category(session[:user]["token"], params)
+    rescue
+      # Gerer en cas d'erreur (message d'erreur dans attribut $!)
+      print $!
+    end
+  end
+
+  #
+  #
+  #
+  def update
+    begin
+
+    rescue
+      print NotImplementedError
+    end
+  end
+
+  #
+  #
+  #
+  def destroy
+    begin
+
+    rescue
+      print NotImplementedError
+    end
+  end
+
 end
