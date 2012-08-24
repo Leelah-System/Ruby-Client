@@ -41,9 +41,9 @@ class CategoryController < AuthenticationController
   #
   def update
     begin
-
+      @category = LeelahWebServices.update_category(session[:user]["token"], params[:id], params)
     rescue
-      print NotImplementedError
+      print $!
     end
   end
 
@@ -52,7 +52,7 @@ class CategoryController < AuthenticationController
   #
   def destroy
     begin
-
+      @result = LeelahWebServices.delete_category(session[:user]["token"], params[:id])
     rescue
       print NotImplementedError
     end
