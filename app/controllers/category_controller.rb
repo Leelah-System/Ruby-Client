@@ -38,9 +38,6 @@ class CategoryController < AuthenticationController
       if params[:name]
         infos[:name] = params[:name]
       end
-      if params[:path]
-        infos[:path] = params[:path]
-      end
       @category = LeelahWebServices.add_category(session[:user]["token"], infos)
     rescue
       # Gerer en cas d'erreur (message d'erreur dans attribut $!)
