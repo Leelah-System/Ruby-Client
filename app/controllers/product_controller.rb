@@ -29,7 +29,6 @@ class ProductController < AuthenticationController
     begin
       @product = LeelahWebServices.add_product(session[:user]["token"], params)
     rescue
-      # Gerer en cas d'erreur (message d'erreur dans attribut $!)
       print $!
     end
   end
