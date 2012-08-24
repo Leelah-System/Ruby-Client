@@ -8,7 +8,32 @@ class ProductController < AuthenticationController
     end
   end
 
+  def show
+    begin
+      @product = LeelahWebServices.get_product(session[:user]["token"], params[:id])
+    rescue
+      print $!
+    end
+  end
+
+  def create
+    begin
+      @product = LeelahWebServices.add_product(session[:user]["token"], params)
+    rescue
+      # Gerer en cas d'erreur (message d'erreur dans attribut $!)
+      print $!
+    end
+  end
+
   def update
+    begin
+
+    rescue
+      print NotImplementedError
+    end
+  end
+
+  def destroy
     begin
 
     rescue
