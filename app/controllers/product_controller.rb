@@ -27,7 +27,10 @@ class ProductController < AuthenticationController
   #
   def create
     begin
-      @product = LeelahWebServices.add_product(session[:user]["token"], params)
+      if params[:product]
+        infos = params[:product]
+        @product = LeelahWebServices.add_product(session[:user]["token"], infos)
+      end
     rescue
       print $!
     end
@@ -38,7 +41,10 @@ class ProductController < AuthenticationController
   #
   def update
     begin
-      @product = LeelahWebServices.update_product(session[:user]["token"], params[:id], params)
+      if params[:product]
+        infos = params[:product]
+        @product = LeelahWebServices.update_product(session[:user]["token"], params[:id], infos)
+      end
     rescue
       print $!
     end
