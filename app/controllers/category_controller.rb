@@ -29,22 +29,10 @@ class CategoryController < AuthenticationController
   #
   def create
     begin
-      if params[:description]
-        infos[:description] = params[:description]
-      else
-        infos[:description] = ""
+      if params[:category]
+        infos = params[:category]
+        @category = LeelahWebServices.add_category(session[:user]["token"], infos)
       end
-      if params[:label]
-        infos[:label] = params[:label]
-      else
-        infos[:label] = ""
-      end
-      if params[:name]
-        infos[:name] = params[:name]
-      else
-        infos[:name] = ""
-      end
-      @category = LeelahWebServices.add_category(session[:user]["token"], infos)
     rescue
       # Gerer en cas d'erreur (message d'erreur dans attribut $!)
       print $!
@@ -56,7 +44,10 @@ class CategoryController < AuthenticationController
   #
   def update
     begin
-      @category = LeelahWebServices.update_category(session[:user]["token"], params[:id], params)
+      if params[:category]
+        infos = params[:category]
+        @category = LeelahWebServices.update_category(session[:user]["token"], params[:id], infos)
+      end
     rescue
       print $!
     end
