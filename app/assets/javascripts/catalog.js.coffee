@@ -1,6 +1,9 @@
 showProducts = ->
+  console.log(this)
   $('ul#tabs li:first a').trigger('click')
+  ;
   return
+  ;
 
 class product
   constructor: (@name, @reference, @description, @price, @stock, @category_id) ->
@@ -93,7 +96,7 @@ class viewModel
       success: (data) ->
         p.parent.products.push(newProduct)
         p.reset()
-        return,
+        return
       error: (a, b, c) ->
         alert(c)
       })
@@ -114,7 +117,7 @@ class viewModel
       success: (data) ->
         c.parent.categories.push(newCategory)
         c.reset()
-        return,
+        return
       error: (a, b, c) ->
         alert(c)
       })
@@ -127,11 +130,8 @@ ko.applyBindings(vm)
 
 $.ajax({
 type: "GET",
-url: "/categories"
-contentTy
-ê:
-"application/json"
-,
+url: "/categories",
+contentType: "application/json",
 success: (data) ->
   categories = data
   vm.categories(categories)
@@ -141,11 +141,8 @@ success: (data) ->
 
 $.ajax({
 type: "GET",
-url: "/products"
-contentTy
-ê:
-"application/json"
-,
+url: "/products",
+contentType: "application/json",
 success: (data) ->
   vm.products(data)
   return

@@ -1,17 +1,0 @@
-o: ActiveSupport::Cache::Entry	:@compressedF:@expires_in0:@created_atf1321281467.541548:@value{I"
-class:EFI"StaticAsset;
-FI"id;
-F"%96ae6d56f30232ff02255b51bafc5250I"logical_path;
-FI"r_menu.gif;
-TI"pathname;
-FI"'$root/app/assets/images/r_menu.gif;
-FI"content_type;
-FI"image/gif;
-FI"
-mtime;
-FI"2010-06-26T20:26:32+02:00;
-FI"length;
-FI"232;
-FI"digest;
-F"%ddda06f96d6dede20d210cfab76d7c8cI"_version;
-F"%46dde6621c301f4928e3b34efee9e3b5
