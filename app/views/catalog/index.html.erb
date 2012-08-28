@@ -1,203 +1,152 @@
-<style type="text/css">
-	html{font-size:100%;}
-	body{font-size:62.5%;font-family:Arial;}
-	
-	.main{font-size:1.9em;}
-	.main ul#categories{list-style:none;padding:0;width:250px;float:left;margin:0 5px 0 0;display:none;}
-	.main ul#categories > li{height:50px;line-height:50px;padding:0 0 0 10px;border-bottom:1px solid gray;cursor:pointer;}
-	.main ul#categories > li.selected{background:#9933ff;color:#fff;font-weight:bold;cursor:default;}
-	
-	.main #products{float:right;overflow:auto;height:768px;width:769px;display:none;}
-	.main #products .product{float:left;border:1px solid gray;margin:5px;border-radius:5px;font-size:0.8em;}
-	
-	.product h3{margin:5px;text-align:center;}
-	.product:hover{background-color:#cc99ff;cursor:pointer;}
-	
-	#productModal{background:#fff;border:2px solid #9933ff;border-radius:5px;font-size:1.2em;}
-	#productModal p {height:auto!important;}
-</style>
-
-<ul id-"tabs" class="nav nav-tabs">
-       <li class="active"><a href="#products" data-toggle="tab">Products</a></li>
-   <li class="dropdown">
-       <a class="dropdown-toggle"
-           data-toggle="dropdown" href="#">
-           Create
-           <b class="caret"></b>
-       </a>
-       <ul class="dropdown-menu">
-           <li><a href="#section" data-toggle="tab">section</a></li>
-           <li><a href="#product" data-toggle="tab">product</a></li>
-       </ul>
-   </li>
+<ul id="tabs" class="nav nav-tabs">
+  <li class="active"><a href="#products-tab" data-toggle="tab">Products</a></li>
+  <li class="dropdown">
+    <a class="dropdown-toggle"
+       data-toggle="dropdown" href="#">
+      Create
+      <b class="caret"></b>
+    </a>
+    <ul class="dropdown-menu">
+      <li><a href="#category-tab" data-toggle="tab">category</a></li>
+      <li><a href="#product-tab" data-toggle="tab">product</a></li>
+    </ul>
+  </li>
 </ul>
 
-<div class="tab-content">
-   <div class="tab-pane active tabbable tabs-left" id="products">
-		<ul id="categories" data-bind="foreach:categories" class="nav nav-tabs" >
-			<li><a data-bind="text: name, attr: { href: '#cat-'+id }" data-toggle="tab"></a></li>
-		</ul>
-		<div class="tab-content" data-bind="foreach:categories">
-			<div class="tab-pane" data-bind="attr: { id: 'cat-'+id }">
-				<table class="table table-condensed">
-					<thead>
-						<tr>
-							<th>id</th>
-							<th>name</th>
-							<th>quantity</th>
-						</tr>
-					</thead>
-					<tbody data-bind="foreach: $parent.getProductsByCategory(id)">
-						<tr>
-							<td data-bind="text: id"></td>
-							<td data-bind="text: name"></td>
-							<td data-bind="text: price"></td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</div>
-   </div>
-   <div class="tab-pane" id="section">
-   		<form class="form-horizontal">
-   			<fieldset>
-   				<div class="control-group">
-   					<label class="control-label" for="sectionName">Name</label>
-   					<div class="controls">
-   						<input type="text" class="input-xlarge" id="sectionName" />
-   						<button class="btn" type="submit">Create</button>
-   					</div>
-   				</div>
-   			</fieldset>
-   		</form>
-   </div>
-   <div class="tab-pane" id="product">
-   		<form class="form-horizontal">
-   			<fieldset>
-   				<div class="control-group">
-   					<label class="control-label" for="productName">Name</label>
-   					<div class="controls">
-   						<input type="text" class="input-xlarge" id="productName" />   						
-   					</div>
-   				</div>
-   				<div class="control-group">
-   					<label class="control-label" for="productPrice">Price</label>
-   					<div class="controls">
-   						<div class="input-prepend">
-   							<span class="add-on">€</span>
-   							<input type="text" class="input-xlarge" id="priceName" />   						
-   						</div>
-   					</div>
-   				</div>
-   			</fieldset>
-   		</form>
-   </div>
+<div class="tab-content" data-bind="validationOptions: { messageTemplate: 'error', errorElementClass: 'error', decorateElement: true }">
+  <div class="tab-pane active" id="products-tab">
+    <div class="row">
+      <div class="span3">
+        <div class="well" style="padding:5px 0;">
+          <ul class="nav nav-list" data-bind="foreach: categories">
+            <li data-bind="attr: { class: $parent.active($data) }">
+              <a href="#" data-bind="text: name, click: $parent.select"></a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="span9">
+        <table class="table table-striped table-condensed">
+          <thead>
+          <tr>
+            <th>Name</th>
+            <th>Reference</th>
+            <th>Price</th>
+            <th>&nbsp;</th>
+          </tr>
+          </thead>
+          <tbody data-bind="foreach: filteredProducts">
+          <tr>
+            <td data-bind="text: name"></td>
+            <td data-bind="text: reference"></td>
+            <td data-bind="text: price"></td>
+            <td>
+              <a data-bind="click: $parent.edit" data-toggle="modal" href="#product-edit"><i class="icon-edit"></i></a>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+        <div id="product-edit" class="modal hide fade in" data-bind="with: product">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">×</button>
+            <h2 data-bind="text: name"></h2>
+          </div>
+          <div class="modal-body">
+            <p data-bind="text: description"></p>
+
+            <p><span data-bind="text: price"></span>€</p>
+          </div>
+          <div class="modal-footer"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="tab-pane" id="category-tab">
+    <form class="form-horizontal" data-bind="with: categoryView">
+      <fieldset>
+        <legend>Add new category</legend>
+        <div class="control-group" data-bind="validationElement: name">
+          <label class="control-label" for="category-name">Name</label>
+
+          <div class="controls">
+            <input id="category-name" type="text" class="input-large" data-bind="value: name"/>
+          </div>
+        </div>
+        <div class="control-group" data-bind="validationElement: label">
+          <label class="control-label" for="category-label">Label</label>
+
+          <div class="controls">
+            <input id="category-label" type="text" class="input-large" data-bind="value: label"/>
+          </div>
+        </div>
+        <div class="control-group" data-bind="validationElement: description">
+          <label class="control-label" for="category-description">Description</label>
+
+          <div class="controls">
+            <input id="category-description" type="text" class="input-large" data-bind="value: description"/>
+          </div>
+        </div>
+        <div class="form-actions">
+          <button class="btn btn-primary" data-bind="click: $parent.addCategory">submit</button>
+          <button class="btn" data-bind="click: reset">cancel</button>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+  <div class="tab-pane" id="product-tab">
+    <form class="form-horizontal" data-bind="with: productView">
+      <fieldset>
+        <legend>Add new product</legend>
+        <div class="control-group" data-bind="validationElement: name">
+          <label class="control-label" for="product-name">Name</label>
+
+          <div class="controls">
+            <input id="product-name" type="text" class="input-large" data-bind="value: name"/>
+          </div>
+        </div>
+        <div class="control-group" data-bind="validationElement: reference">
+          <label class="control-label" for="product-reference">Reference</label>
+
+          <div class="controls">
+            <input id="product-reference" type="text" class="input-large" data-bind="value: reference"/>
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label" for="product-description">Description</label>
+
+          <div class="controls">
+            <textarea id="product-description" class="input-xlarge" data-bind="value: description"></textarea>
+          </div>
+        </div>
+        <div class="control-group" data-bind="validationElement: price">
+          <label class="control-label" for="product-price">Price</label>
+
+          <div class="controls">
+            <input id="product-price" type="text" class="input-small" data-bind="value: price"/>
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label" for="product-stock">Stock</label>
+
+          <div class="controls">
+            <input id="product-stock" type="text" class="input-small" data-bind="value: stock"/>
+          </div>
+        </div>
+        <div class="control-group" data-bind="validationElement: category">
+          <label class="control-label" for="product-category">Category</label>
+
+          <div class="controls">
+            <select id="product-category" type="text" data-bind="options: $parent.categories, optionsCaption: 'Select...', optionsText: 'name', value: category"></select>
+          </div>
+        </div>
+        <div class="form-actions">
+          <button class="btn btn-primary" data-bind="click: $parent.addProduct">submit</button>
+          <button class="btn" data-bind="click: reset">cancel</button>
+        </div>
+      </fieldset>
+    </form>
+  </div>
 </div>
-
-<div id="productModal" data-bind="with: productViewModel">
-	<p data-bind="text: product().name"></p>
-	<p data-bind="text: product().description"></p>
-	<p>
-		<label>stock</label> : <a data-bind="click: sub">(-)</a><span data-bind="text: product().stock"></span><a data-bind="click: add">(+)</a>
-	</p>
-</div>
-
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-<script type="text/javascript" src="/assets/knockout.js"></script>
-<script type="text/javascript" src="/assets/jquery-ui.js"></script>
-<script type="text/javascript">
-	(function($){
-		
-		$("#productModal").dialog({
-			autoOpen: false
-		});
-		
-		var products = null,
-			productViewModel = function(product) {
-				var self = this;
-				this.product = ko.observable(product);
-				this.add = function() {
-					var p = self.product()
-					p.stock += 1;
-					$.ajax({
-						type: 'get',
-						url: '/product/update',
-						data: p,
-						success: function() {
-							self.product(p);		
-						}
-					});
-						
-				};
-				this.sub = function(){
-					var p = self.product()
-					p.stock -= 1;
-					$.ajax({
-						type: 'get',
-						url: '/product/update',
-						data: p,
-						success: function() {
-							self.product(p);		
-						}
-					});
-				};
-			},
-
-			viewModel = function(categories, products) {
-				var self = this;
-				this.categories = ko.observableArray(categories);
-				this.products = products;
-				this.productViewModel = ko.observable();
-
-				this.getProductsByCategory = function(category) {
-					if (category === -1) {
-						return products;
-					}
-					var list = [];
-					for (var i = 0, l = products.length; i < l; i++) {
-						var product = products[i];
-						if (product.category_id === category) {
-							list.push(product);
-						}
-					}
-					return list;
-				};
-
-				this.show = function(product) {
-					self.productViewModel(new productViewModel(product));
-					$("#product").dialog('open');
-				};
-				
-			};
-		
-		
-		//$(document).ready pour s'assurer que le dom est prêt a être manipulé
-		//en fait, inutile ici car code à exécuter placé à la fin de la page
-		$(document).ready(function() {
-
-			//récupération de toutes les catégories
-			$.getJSON("/category", function(response) {
-				if (response.success) {
-					var categories = response.result.categories || [];
-
-					//récupération de tous les produits
-					$.getJSON("/product", function(response) {
-						if(response.success) {
-							products = response.result.products;
-											
-							//knockout : initialisation de la vue;
-							var vm = new viewModel(categories, products);
-							ko.applyBindings(vm);
-
-							$("#products > ul > li:first").addClass("active");
-							$("#products > div > div:first").addClass("active");
-						}
-					});		
-				}
-			});
-
-			
-		});
-		
-	})(jQuery);
+<script id="error" type="text/html">
+  <span class="help-inline" data-bind="validationMessage: field"></span>
 </script>

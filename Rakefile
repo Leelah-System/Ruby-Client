@@ -4,4 +4,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-FirstSteps::Application.load_tasks
+LeelahClient::Application.load_tasks

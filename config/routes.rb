@@ -1,20 +1,18 @@
-FirstSteps::Application.routes.draw do
-  resources :posts
+LeelahClient::Application.routes.draw do
+  match "connect" => 'session#login'
+  get "disconnect" => 'session#logout'
 
-  root :to => "home#index"
-  
-  get "home/index"
-  
-  match "account/login" => "session#login"
-  match "account/logout" => "session#logout"
-  
-  get "catalog" => "catalog#index"
-  get "invoices" => "invoices#index"
-  get "settings" => "settings#index"
-  get "reports" => "reports#index"
-  get "category" => "category#index"  
-  get "product" => "product#index"
-  
-  get "product/update"
+  get "catalog/index"
+
+  get "categories" => 'category#list'
+  post "category" => 'category#create'
+  put "category" => 'category#update'
+  delete "category" => 'category#delete'
+
+  get "products" => 'product#list'
+  post "product" => 'product#create'
+  put "product" => 'product#update'
+  delete "product" => 'product#delete'
+
+  root :to => 'catalog#index'
 end
-

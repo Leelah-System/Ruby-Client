@@ -1,15 +1,17 @@
-<%= form_tag account_login_path do %>
-<ul>
-	<li>
-		<%= label_tag :login, "login" %>
-		<%= text_field_tag :login, params[:login] %>
-	</li>
-	<li>
-		<%= label_tag :password, "password" %>
-		<%= password_field_tag :password, params[:password] %>
-	</li>
-	<li class="btn">
-		<%= submit_tag "Log in" %>
-	</li>
-</ul>
-<% end %>
+<div class="control-group">
+  <%= label_tag :login, "login", :class => "control-label" %>
+  <div class="controls">
+    <%= text_field_tag :login, params[:login], :class => "input-medium" %>
+  </div>
+</div>
+<div class="control-group">
+  <%= label_tag :password, "password", :class => "control-label" %>
+  <div class="controls">
+    <%= password_field_tag :password, params[:password], :class => "input-medium" %>
+  </div>
+</div>
+<div class="form-actions">
+  <div class="pull-right">
+    <%= submit_tag "Log in", :class => "btn btn-primary" %>
+  </div>
+</div>
