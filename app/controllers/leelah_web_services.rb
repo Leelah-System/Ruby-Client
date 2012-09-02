@@ -10,7 +10,7 @@ class LeelahWebServices < AuthenticationController
   # @param [Strings, #token]
   # @return [Object, #categories]
   def self.get_categories(token)
-    response = RestClient.get 'http://leelah-system.com:3000/api/' + token + '/catalog/categories'
+    response = RestClient.get Rails.application.config.server_url + '/api/' + token + '/catalog/categories'
     result = JSON.parse(response.to_str)
     if result["success"]
       @categories = result["result"]["categories"]
@@ -26,7 +26,7 @@ class LeelahWebServices < AuthenticationController
   # @param [Int, #id]
   # @return [Object, #category]
   def self.get_category(token, id)
-    response = RestClient.get 'http://leelah-system.com:3000/api/' + token + '/catalog/categories/' + id
+    response = RestClient.get Rails.application.config.server_url + '/api/' + token + '/catalog/categories/' + id
     result = JSON.parse(response.to_str)
     if result["success"]
       @category = result["result"]
@@ -42,7 +42,7 @@ class LeelahWebServices < AuthenticationController
   # @param [Object, #params]
   # @return [Object, #category]
   def self.add_category(token, params)
-    response = RestClient.post 'http://leelah-system.com:3000/api/' + token + '/catalog/categories', {"category" => params}.to_json, :content_type => :json, :accept => :json
+    response = RestClient.post Rails.application.config.server_url + '/api/' + token + '/catalog/categories', {"category" => params}.to_json, :content_type => :json, :accept => :json
     result = JSON.parse(response.to_str)
     if result["success"]
       @category = result["result"]
@@ -59,7 +59,7 @@ class LeelahWebServices < AuthenticationController
   # @param [Object, #params]
   # @return [Object, #category]
   def self.update_category(token, id, params)
-    response = RestClient.put 'http://leelah-system.com:3000/api/' + token + '/catalog/categories/' + id, {"category" => params}.to_json, :content_type => :json, :accept => :json
+    response = RestClient.put Rails.application.config.server_url + '/api/' + token + '/catalog/categories/' + id, {"category" => params}.to_json, :content_type => :json, :accept => :json
     result = JSON.parse(response.to_str)
     if result["success"]
       @category = result["result"]
@@ -75,7 +75,7 @@ class LeelahWebServices < AuthenticationController
   # @param [Int, #id]
   # @return [Bool]
   def self.delete_category(token, id)
-    response = RestClient.delete 'http://leelah-system.com:3000/api/' + token + '/catalog/categories/' + id
+    response = RestClient.delete Rails.application.config.server_url + '/api/' + token + '/catalog/categories/' + id
     result = JSON.parse(response.to_str)
     if result["success"]
       return true
@@ -93,7 +93,7 @@ class LeelahWebServices < AuthenticationController
   # Todo                   price => min_price || max_price ]
   # Todo Add parameters = [ scope, text , min_price, max_price ]
   def self.get_products(token)
-    response = RestClient.get 'http://leelah-system.com:3000/api/' + token + '/catalog/products'
+    response = RestClient.get Rails.application.config.server_url + '/api/' + token + '/catalog/products'
     result = JSON.parse(response.to_str)
     if result["success"]
       @products = result["result"]["products"]
@@ -109,7 +109,7 @@ class LeelahWebServices < AuthenticationController
   # @param [Int, #id]
   # @return [Object]
   def self.get_product(token, id)
-    response = RestClient.get 'http://leelah-system.com:3000/api/' + token + '/catalog/products/' + id
+    response = RestClient.get Rails.application.config.server_url + '/api/' + token + '/catalog/products/' + id
     result = JSON.parse(response.to_str)
     if result["success"]
       @product = result["result"]
@@ -125,7 +125,7 @@ class LeelahWebServices < AuthenticationController
   # @param [Object, #params]
   # @return [Object]
   def self.add_product(token, params)
-    response = RestClient.post 'http://leelah-system.com:3000/api/' + token + '/catalog/products', {"product" => params}.to_json, :content_type => :json, :accept => :json
+    response = RestClient.post Rails.application.config.server_url + '/api/' + token + '/catalog/products', {"product" => params}.to_json, :content_type => :json, :accept => :json
     result =  JSON.parse(response.to_str)
     if result["success"]
       @product = result["result"]
@@ -142,7 +142,7 @@ class LeelahWebServices < AuthenticationController
   # @param [Object, #params]
   # @return [Object, #product]
   def self.update_product(token, id, params)
-    response = RestClient.put 'http://leelah-system.com:3000/api/' + token + '/catalog/products/' + id, {"product" => params}.to_json, :content_type => :json, :accept => :json
+    response = RestClient.put Rails.application.config.server_url + '/api/' + token + '/catalog/products/' + id, {"product" => params}.to_json, :content_type => :json, :accept => :json
     result =  JSON.parse(response.to_str)
     if result["success"]
       @product = result["result"]
@@ -158,7 +158,7 @@ class LeelahWebServices < AuthenticationController
   # @param [Int, #id]
   # @return [Bool]
   def self.delete_product(token, id)
-    response = RestClient.delete 'http://leelah-system.com:3000/api/' + token + '/catalog/products/' + id
+    response = RestClient.delete Rails.application.config.server_url + '/api/' + token + '/catalog/products/' + id
     result =  JSON.parse(response.to_str)
     if result["success"]
       return true
@@ -251,4 +251,33 @@ class LeelahWebServices < AuthenticationController
     end
   end
 
+  # Get company
+  #
+  # @param [String, #token]
+  # @return [Object, #company]
+  def self.get_company(token)
+    response = RestClient.get RestClient.get Rails.application.config.server_url + '/api/' + token + '/company'
+    result =  JSON.parse(response.to_str)
+    if result["success"]
+      @company = result["result"]
+      return @company
+    else
+      raise result["msg"]
+    end
+  end
+
+  # Get company
+  #
+  # @param [String, #token]
+  # @return [Object, #company]
+  def self.get_users(token)
+    response = RestClient.get RestClient.get Rails.application.config.server_url + '/api/' + token + '/users'
+    result =  JSON.parse(response.to_str)
+    if result["success"]
+      @users = result["result"]["users"]
+      return @users
+    else
+      raise result["msg"]
+    end
+  end
 end
