@@ -1,9 +1,10 @@
 require 'rest_client'
 
 class LeelahWebServices < AuthenticationController
-  ##
-  # Catalogue
-  ##
+
+  ###
+  ## CATEGORIES
+  ###
 
   # Get all categories
   #
@@ -83,6 +84,10 @@ class LeelahWebServices < AuthenticationController
       raise result["msg"]
     end
   end
+
+  ###
+  ## PRODUCTS
+  ###
 
   # Get all products
   #
@@ -178,7 +183,7 @@ class LeelahWebServices < AuthenticationController
   # Todo Add scope  = with_status
   # Todo Add status = [0 => init, 1 => pending, 2 => done]
   def self.get_orders(token)
-    response = RestClient.get 'http://leelah-system.com:3000/api/' + token + '/orders'
+    response = RestClient.get Rails.application.config.server_url + '/api/' + token + '/orders'
     result =  JSON.parse(response.to_str)
     if result["success"]
       @orders = result["result"]['orders']
@@ -194,7 +199,7 @@ class LeelahWebServices < AuthenticationController
   # @param [Int, #id]
   # @@return [Object, #order]
   def self.get_order(token, id)
-    response = RestClient.get 'http://leelah-system.com:3000/api/' + token + '/orders/' + id
+    response = RestClient.get Rails.application.config.server_url + '/api/' + token + '/orders/' + id
     result =  JSON.parse(response.to_str)
     if result["success"]
       @order = result["result"]
@@ -210,7 +215,7 @@ class LeelahWebServices < AuthenticationController
   # @param [Object, #params]
   # @return [Object, #order]
   def self.add_order(token, params)
-    response = RestClient.post 'http://leelah-system.com:3000/api/' + token + '/orders', {"order" => params}.to_json, :content_type => :json, :accept => :json
+    response = RestClient.post Rails.application.config.server_url + '/api/' + token + '/orders', {"order" => params}.to_json, :content_type => :json, :accept => :json
     result =  JSON.parse(response.to_str)
     if result["success"]
       @order = result["result"]
@@ -226,7 +231,7 @@ class LeelahWebServices < AuthenticationController
   # @param [Object, #params]
   # @return [Object, #order]
   def self.update_order(token, id, params)
-    response = RestClient.put 'http://leelah-system.com:3000/api/' + token + '/orders/' + id, {"order" => params}.to_json, :content_type => :json, :accept => :json
+    response = RestClient.put Rails.application.config.server_url + '/api/' + token + '/orders/' + id, {"order" => params}.to_json, :content_type => :json, :accept => :json
     result =  JSON.parse(response.to_str)
     if result["success"]
       @order = result["result"]
@@ -242,7 +247,7 @@ class LeelahWebServices < AuthenticationController
   # @param [Int, #id]
   # @return [Bool]
   def self.delete_order(token, id)
-    response = RestClient.delete 'http://leelah-system.com:3000/api/' + token + '/orders/' + id
+    response = RestClient.delete Rails.application.config.server_url + '/api/' + token + '/orders/' + id
     result =  JSON.parse(response.to_str)
     if result["success"]
       return true
@@ -251,12 +256,16 @@ class LeelahWebServices < AuthenticationController
     end
   end
 
+  ###
+  ## COMPANY
+  ###
+
   # Get company
   #
   # @param [String, #token]
   # @return [Object, #company]
   def self.get_company(token)
-    response = RestClient.get RestClient.get Rails.application.config.server_url + '/api/' + token + '/company'
+    response = RestClient.get Rails.application.config.server_url + '/api/' + token + '/company'
     result =  JSON.parse(response.to_str)
     if result["success"]
       @company = result["result"]
@@ -266,12 +275,64 @@ class LeelahWebServices < AuthenticationController
     end
   end
 
-  # Get company
+  # Add a company
   #
   # @param [String, #token]
+  # @param [Object, #params]
   # @return [Object, #company]
+  def self.add_company(token, params)
+    response = RestClient.post Rails.application.config.server_url + '/api/' + token + '/company', { "company" => params }.to_json, :content_type => :json, :accept => :json
+    result =  JSON.parse(response.to_str)
+    if result["success"]
+      @company = result["result"]
+      return @company
+    else
+      raise result["msg"]
+    end
+  end
+
+  # Update a company
+  #
+  # @param [String, #token]
+  # @param [Int, #id]
+  # @param [Object, #params]
+  # @return [Object, #company]
+  def self.update_company(token, id, params)
+    response = RestClient.put Rails.application.config.server_url + '/api/' + token + '/company/' + id, { "company" => params }.to_json, :content_type => :json, :accept => :json
+    result =  JSON.parse(response.to_str)
+    if result["success"]
+      @company = result["result"]
+      return @company
+    else
+      raise result["msg"]
+    end
+  end
+
+  # Delete a company
+  #
+  # @param [String, #token]
+  # @param [Int, #id]
+  # @return [Bool]
+  def self.delete_company(token, id)
+    response = RestClient.delete Rails.application.config.server_url + '/api/' + token + '/company/' + id
+    result =  JSON.parse(response.to_str)
+    if result["success"]
+      return true
+    else
+      raise result["msg"]
+    end
+  end
+
+  ###
+  ## USERS
+  ###
+
+  # Get users
+  #
+  # @param [String, #token]
+  # @return [Object, #users]
   def self.get_users(token)
-    response = RestClient.get RestClient.get Rails.application.config.server_url + '/api/' + token + '/users'
+    response = RestClient.get Rails.application.config.server_url + '/api/' + token + '/users'
     result =  JSON.parse(response.to_str)
     if result["success"]
       @users = result["result"]["users"]
@@ -280,4 +341,54 @@ class LeelahWebServices < AuthenticationController
       raise result["msg"]
     end
   end
+
+  # Add a new user
+  #
+  # @param [String, #token]
+  # @param [Object, #params]
+  # @return [Object, #user]
+  def self.add_user(token, params)
+    response = RestClient.post Rails.application.config.server_url + '/api' + token + '/users', {"user" => params}.to_json, :content_type => :json, :accept => :json
+    result =  JSON.parse(response.to_str)
+    if result["success"]
+      @user = result["result"]
+      return @user
+    else
+      raise result["msg"]
+    end
+  end
+
+  # Update an user
+  #
+  # @param [String, #token]
+  # @param [Object, #params]
+  # @param [Int, #id]
+  # @return [Object, #user]
+  def self.update_user(token, id, params)
+    response = RestClient.put Rails.application.config.server_url + '/api/' + token + '/users/' + id, {"user" => params}.to_json, :content_type => :json, :accept => :json
+    result =  JSON.parse(response.to_str)
+    if result["success"]
+      @order = result["result"]
+      return @order
+    else
+      raise result["msg"]
+    end
+  end
+
+  # Delete an user
+  #
+  # @param [String, #token]
+  # @param [Int, #id]
+  # @return [Bool]
+  def self.delete_user(token, id)
+    response = RestClient.delete Rails.application.config.server_url + '/api/' + token + '/users/' + id
+    result =  JSON.parse(response.to_str)
+    if result["success"]
+      return true
+    else
+      raise result["msg"]
+    end
+  end
+
+
 end
