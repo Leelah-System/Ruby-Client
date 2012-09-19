@@ -48,5 +48,8 @@ LeelahClient::Application.routes.draw do
   delete "address" => 'company#destroy_address'
 
   ##
+  get "reports" => 'report#index'
+
+  ##
   root :to => 'catalog#index'
 end
