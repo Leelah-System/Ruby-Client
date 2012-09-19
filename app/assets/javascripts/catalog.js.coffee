@@ -1,5 +1,4 @@
 showProducts = ->
-  console.log(this)
   $('ul#tabs li:first a').trigger('click')
   ;
   return

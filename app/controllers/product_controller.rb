@@ -3,7 +3,7 @@ class ProductController < AuthenticationController
   #
   #
   #
-  def list
+  def index
     begin
       render :json => LeelahWebServices.get_products(session[:user]["token"])
     rescue

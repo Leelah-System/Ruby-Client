@@ -1,13 +1,13 @@
 <ul id="tabs" class="nav nav-tabs">
-  <li class="active"><a href="#products-tab" data-toggle="tab">Products</a></li>
+  <li class="active"><a href="#products-tab" data-toggle="tab">Accueil</a></li>
   <li class="dropdown">
     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-      Create
+      Ajouter
       <b class="caret"></b>
     </a>
     <ul class="dropdown-menu">
-      <li><a href="#category-tab" data-toggle="tab">category</a></li>
-      <li><a href="#product-tab" data-toggle="tab">product</a></li>
+      <li><a href="#category-tab" data-toggle="tab">Une catégorie</a></li>
+      <li><a href="#product-tab" data-toggle="tab">Un produit</a></li>
     </ul>
   </li>
 </ul>
@@ -28,9 +28,9 @@
         <table class="table table-striped table-condensed">
           <thead>
           <tr>
-            <th>Name</th>
-            <th>Reference</th>
-            <th>Price</th>
+            <th>Nom</th>
+            <th>Référence</th>
+            <th>Prix</th>
             <th>&nbsp;</th>
           </tr>
           </thead>
@@ -63,9 +63,9 @@
   <div class="tab-pane" id="category-tab">
     <form class="form-horizontal" data-bind="with: categoryView">
       <fieldset>
-        <legend>Add new category</legend>
+        <legend>Ajouter une nouvelle catégorie</legend>
         <div class="control-group" data-bind="validationElement: name">
-          <label class="control-label" for="category-name">Name</label>
+          <label class="control-label" for="category-name">Nom</label>
 
           <div class="controls">
             <input id="category-name" type="text" class="input-large" data-bind="value: name"/>
@@ -86,8 +86,8 @@
           </div>
         </div>
         <div class="form-actions">
-          <button class="btn btn-primary" data-bind="click: $parent.addCategory">submit</button>
-          <button class="btn" data-bind="click: reset">cancel</button>
+          <button class="btn btn-primary" data-bind="click: $parent.addCategory">Ajouter</button>
+          <button class="btn" data-bind="click: reset">Annuler</button>
         </div>
       </fieldset>
     </form>
@@ -95,16 +95,16 @@
   <div class="tab-pane" id="product-tab">
     <form class="form-horizontal" data-bind="with: productView">
       <fieldset>
-        <legend>Add new product</legend>
+        <legend>Ajouter un nouveau produit</legend>
         <div class="control-group" data-bind="validationElement: name">
-          <label class="control-label" for="product-name">Name</label>
+          <label class="control-label" for="product-name">Nom</label>
 
           <div class="controls">
             <input id="product-name" type="text" class="input-large" data-bind="value: name"/>
           </div>
         </div>
         <div class="control-group" data-bind="validationElement: reference">
-          <label class="control-label" for="product-reference">Reference</label>
+          <label class="control-label" for="product-reference">Référence</label>
 
           <div class="controls">
             <input id="product-reference" type="text" class="input-large" data-bind="value: reference"/>
@@ -118,7 +118,7 @@
           </div>
         </div>
         <div class="control-group" data-bind="validationElement: price">
-          <label class="control-label" for="product-price">Price</label>
+          <label class="control-label" for="product-price">Prix</label>
 
           <div class="controls">
             <input id="product-price" type="text" class="input-small" data-bind="value: price"/>
@@ -132,15 +132,15 @@
           </div>
         </div>
         <div class="control-group" data-bind="validationElement: category">
-          <label class="control-label" for="product-category">Category</label>
+          <label class="control-label" for="product-category">Catégorie</label>
 
           <div class="controls">
             <select id="product-category" type="text" data-bind="options: $parent.categories, optionsCaption: 'Select...', optionsText: 'name', value: category"></select>
           </div>
         </div>
         <div class="form-actions">
-          <button class="btn btn-primary" data-bind="click: $parent.addProduct">submit</button>
-          <button class="btn" data-bind="click: reset">cancel</button>
+          <button class="btn btn-primary" data-bind="click: $parent.addProduct">Ajouter</button>
+          <button class="btn" data-bind="click: reset">Annuler</button>
         </div>
       </fieldset>
     </form>

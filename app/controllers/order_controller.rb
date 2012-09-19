@@ -9,6 +9,18 @@ class OrderController < AuthenticationController
   def index
     begin
       @orders = LeelahWebServices.get_orders(session[:user]["token"])
+        # render :json => LeelahWebServices.get_orders(session[:user]["token"])
+    rescue
+      print $!
+    end
+  end
+
+  #
+  #
+  #
+  def list
+    begin
+      render :json => LeelahWebServices.get_orders(session[:user]["token"])
     rescue
       print $!
     end

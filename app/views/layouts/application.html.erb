@@ -41,9 +41,9 @@
     <div class="container">
       <div class="container nav-collapse">
         <ul class="nav">
-          <li><%= link_to "Catalog", "/catalog/index" %></li>
-          <li><%= link_to "Invoices", "/invoices" %></li>
-          <li><%= link_to "Reports", "/reports" %></li>
+          <li><%= link_to "Le catalogue", "/catalog/index" %></li>
+          <li><%= link_to "Les commandes", "/order/index" %></li>
+          <li><%= link_to "Les rapports", "/reports" %></li>
         </ul>
         <div class="btn-group pull-right">
           <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
@@ -51,10 +51,10 @@
             <span class="caret"></span>
           </a>
           <ul class="dropdown-menu">
-            <li><a href="#">My profile</a></li>
-            <li><a href="#">Settings</a></li>
+            <li><%= link_to "Mon profil", "/user/index" %></li>
+            <li><%= link_to "Paramètres", "/setting/index" %></li>
             <li class="divider"></li>
-            <li><a href="<%= disconnect_path %>">Sign Out</a></li>
+            <li><a href="<%= disconnect_path %>">Déconnexion</a></li>
           </ul>
         </div>
       </div>

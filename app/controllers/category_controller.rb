@@ -3,7 +3,7 @@ class CategoryController < AuthenticationController
   #
   #
   #
-  def list
+  def index
     begin
       render :json => LeelahWebServices.get_categories(session[:user]["token"])
     rescue
