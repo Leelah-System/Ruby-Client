@@ -1,0 +1,33 @@
+<form method="put" action="<%= edit_user_path(params[:id])	 %>">
+	<fieldset>
+		<legend>User</legend>
+		<div class="control-group">
+            <label class="control-label" for="login">Login</label>
+            <div class="controls">
+                <input id="login" type="text" class="input-large" value="<%= @user["login"] %>" disabled="disabled" />
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="first_name">Firstname</label>
+            <div class="controls">
+                <input id="first_name" type="text" class="input-large" value="<%= @user["first_name"] %>" />
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="last_name">Lastname</label>
+            <div class="controls">
+                <input id="last_name" type="text" class="input-large" value="<%= @user["last_name"] %>" />
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="email">Email</label>
+            <div class="controls">
+                <input id="email" type="text" class="input-large" value="<%= @user["email"] %>" />
+            </div>
+        </div>
+        <div class="form-actions">
+          <input type="submit" class="btn btn-primary" value="valider" />
+          <a class="btn" href="/setting/index?tab=users">annuler</a>
+        </div>
+	</fieldset>
+</form>

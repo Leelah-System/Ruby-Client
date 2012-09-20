@@ -39,11 +39,13 @@ class UserController < AuthenticationController
   #
   #
   #
-  def update
+  def edit
     begin
       if params[:user]
         infos = params[:user]
         @user = LeelahWebServices.update_user(session[:user]["token"], params[:id], infos)
+      else
+        @user = LeelahWebServices.get_user(session[:user]["token"], params[:id])
       end
     rescue
       print $!

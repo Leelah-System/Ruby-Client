@@ -342,6 +342,21 @@ class LeelahWebServices < AuthenticationController
     end
   end
 
+  # Get user
+  #
+  # @param [String, #token]
+  # @return [Object, #user]
+  def self.get_user(token, id)
+    response = RestClient.get Rails.application.config.server_url + '/api/' + token + '/users/' + id 
+    result =  JSON.parse(response.to_str)
+    if result["success"]
+      @user = result["result"]
+      return @user
+    else
+      raise result["msg"]
+    end
+  end
+  
   # Add a new user
   #
   # @param [String, #token]
