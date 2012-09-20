@@ -35,6 +35,7 @@ LeelahClient::Application.routes.draw do
   post "user" => 'user#create'
   put "user" => 'user#update'
   delete "user" => 'user#destroy'
+  resources :user
 
   ##
   get "setting/index"

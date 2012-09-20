@@ -41,9 +41,9 @@
     <div class="container">
       <div class="container nav-collapse">
         <ul class="nav">
-          <li><%= link_to "Le catalogue", "/catalog/index" %></li>
-          <li><%= link_to "Les commandes", "/order/index" %></li>
-          <li><%= link_to "Les rapports", "/reports" %></li>
+          <li class="<%= 'active' if current_page?(root_path) || current_page?(catalog_index_path) %>"><%= link_to "Les catalogues", "/catalog/index"  %></li>
+          <li class="<%= 'active' if current_page?(order_index_path) %>"><%= link_to "Les commandes", "/order/index"  %></li>
+          <li class="<%= 'active' if current_page?(reports_path) %>"><%= link_to "Les rapports", "/reports"  %></li>
         </ul>
         <div class="btn-group pull-right">
           <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
